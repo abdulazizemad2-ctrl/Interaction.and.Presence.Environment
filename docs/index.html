@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>بيئة التفاعل والحضور</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&display=swap">
+<style>/* Layout: a teal masthead, a sticky section bar, then a single reading column whose goal sections read like chapters of one learning environment. */
+:root{
+  --bg:#F5F8F7; --surface:#FFFFFF; --ink:#14302F; --muted:#56706E; --line:#D5E2E0;
+  --teal:#0E5F63; --teal-soft:#E2EFEE; --gold:#B8892B; --gold-soft:#F6EDD9;
+  --head-bg:#0E5F63; --head-ink:#F3FAF9; --head-muted:#BFDCD9; --head-accent:#F1CE7E;
+  --f-display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1A1A; --surface:#132424; --ink:#E4F0EE; --muted:#9DB6B3; --line:#244040;
+  --teal:#5CC2C0; --teal-soft:#173535; --gold:#E2B860; --gold-soft:#2E2715;
+  --head-bg:#0A3F42; --head-ink:#EEF8F7; --head-muted:#9FC9C5; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0E1A1A; --surface:#132424; --ink:#E4F0EE; --muted:#9DB6B3; --line:#244040;
+  --teal:#5CC2C0; --teal-soft:#173535; --gold:#E2B860; --gold-soft:#2E2715;
+  --head-bg:#0A3F42; --head-ink:#EEF8F7; --head-muted:#9FC9C5; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.8}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.page{direction:rtl;text-align:right}
+.wrap{max-width:1080px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--teal);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:3px}
+strong{font-weight:600}
+
+/* masthead */
+.masthead{background:var(--head-bg);color:var(--head-ink)}
+.masthead .wrap{padding-block:48px 40px;display:grid;gap:18px}
+.kicker{margin:0;font-size:13px;color:var(--head-muted);letter-spacing:.01em}
+.masthead h1{margin:0;font-family:var(--f-display);font-weight:600;font-size:clamp(30px,5vw,50px);line-height:1.35;text-wrap:balance;max-width:20ch}
+.masthead h1 span{color:var(--head-accent)}
+.lede{margin:0;max-width:62ch;font-size:17px;color:var(--head-ink);opacity:.92}
+.facts{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.facts li{display:flex;align-items:baseline;gap:8px;padding:8px 14px;border:1px solid color-mix(in srgb,var(--head-ink) 28%,transparent);border-radius:999px}
+.facts b{font-family:var(--f-display);font-size:22px;font-variant-numeric:tabular-nums}
+.facts span{font-size:14px;color:var(--head-muted)}
+
+/* nav */
+.topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+.topnav a{flex:none;padding:6px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:500}
+.topnav a:hover{background:var(--teal-soft);color:var(--teal)}
+
+/* blocks */
+main{padding-block:12px 40px}
+.block{padding-block:40px 8px;scroll-margin-top:64px;border-bottom:1px solid var(--line)}
+.block:last-child{border-bottom:0}
+h2{margin:0 0 18px;font-family:var(--f-display);font-weight:600;font-size:clamp(24px,3.4vw,32px);line-height:1.4;text-wrap:balance;display:flex;flex-direction:column;gap:2px}
+h2 small{font-family:var(--f-body);font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.02em}
+.sub{margin:28px 0 10px;font-size:19px;font-weight:600;text-wrap:balance}
+p{margin:0 0 12px;max-width:72ch}
+.prose p{font-size:17px}
+.question{font-family:var(--f-display);font-size:clamp(20px,2.8vw,26px);color:var(--teal);padding-block:6px;margin-block:12px}
+.aim{background:var(--teal-soft);padding:14px 18px;border-radius:10px;max-width:none}
+.note{color:var(--muted);font-size:15px;margin-top:14px}
+.list{margin:10px 0 0;padding-inline-start:20px;display:grid;gap:8px;max-width:78ch}
+.list li::marker{color:var(--gold)}
+
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.split > *{min-width:0}
+@media (max-width:820px){.split{grid-template-columns:minmax(0,1fr)}}
+
+.goals-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.goals-list a{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);text-decoration:none;color:var(--ink)}
+.goals-list a:hover{border-color:var(--teal)}
+.goals-list b{grid-row:1 / 3;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--surface);font-family:var(--f-display);font-variant-numeric:tabular-nums}
+.goals-list span{font-size:15px;line-height:1.6}
+.goals-list em{font-style:normal;font-size:13px;color:var(--muted)}
+
+.cycle{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.cycle svg{width:100%;height:auto;display:block}
+.cycle figcaption{font-size:14px;color:var(--muted);text-align:center;padding:4px 8px 6px}
+.cy-line{stroke:var(--muted);stroke-width:1.5}
+.cy-arrow{fill:var(--muted)}
+.cy-node circle{fill:var(--teal-soft);stroke:var(--teal);stroke-width:1.5}
+.cy-node:hover circle{fill:var(--gold-soft);stroke:var(--gold)}
+.cy-num{fill:var(--teal);font-family:var(--f-display);font-size:22px;text-anchor:middle}
+.cy-lbl{fill:var(--ink);font-family:var(--f-body);font-size:12.5px;text-anchor:middle}
+.cy-c1{fill:var(--gold);font-family:var(--f-display);font-size:20px;text-anchor:middle}
+.cy-c2{fill:var(--muted);font-family:var(--f-body);font-size:13px;text-anchor:middle}
+
+/* tables */
+.tw{overflow-x:auto;margin-block:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.7}
+th,td{padding:10px 12px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line)}
+tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+thead th{background:var(--teal-soft);color:var(--teal);font-weight:600;font-size:13.5px;white-space:nowrap}
+tbody th{font-weight:600}
+table.c4w td:first-child{white-space:nowrap;color:var(--teal);font-weight:600}
+table.c4w,table.c4,table.c4b{min-width:640px}
+td.num{font-variant-numeric:tabular-nums;letter-spacing:.03em}
+td a{word-break:normal;white-space:nowrap}
+
+.matrix{min-width:600px}
+.matrix td,.matrix th{text-align:center}
+.matrix tbody th{text-align:right;white-space:nowrap}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600}
+.chip.p{background:var(--teal);color:var(--surface)}
+.chip.s{background:var(--gold-soft);color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 40%,transparent)}
+.dash{color:var(--line)}
+
+/* standard */
+.std{list-style:none;margin:6px 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.std li{display:flex;gap:8px;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14.5px}
+.std b{font-family:var(--f-display);color:var(--gold);font-size:18px;font-variant-numeric:tabular-nums}
+
+.goalnav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.goalnav a{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink);font-size:14px}
+.goalnav a b{color:var(--teal);font-variant-numeric:tabular-nums}
+.goalnav a:hover{border-color:var(--teal)}
+
+/* goal chapters */
+.goal{margin-top:36px;padding-top:28px;border-top:2px solid var(--teal);scroll-margin-top:64px}
+.goal.extra{border-top-color:var(--line)}
+.goal-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
+.goal-num{font-family:var(--f-display);font-size:64px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.eyebrow{margin:0;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.goal-meta h3{margin:2px 0 10px;font-family:var(--f-display);font-weight:600;font-size:clamp(20px,2.8vw,26px);line-height:1.5;text-wrap:balance}
+.owner,.personal{margin:0 0 6px;font-size:15px}
+.owner span,.personal span{display:inline-block;margin-inline-end:8px;font-size:12.5px;font-weight:600;color:var(--teal);background:var(--teal-soft);padding:1px 8px;border-radius:6px}
+.tally{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.tally span{font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:2px 8px}
+.goal h4{margin:22px 0 6px;font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px}
+.goal h4 b{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;background:var(--gold-soft);color:var(--gold);font-size:13px;font-variant-numeric:tabular-nums}
+@media (max-width:520px){.goal-num{font-size:44px}.goal-head{gap:12px}}
+
+.foot{border-top:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:13px}
+.foot .wrap{padding-block:20px}
+</style>
+</head>
+<body>
+<div class="page" dir="rtl" lang="ar">
+<header class="masthead">
+  <div class="wrap">
+    <p class="kicker">مقرر التقنية في بيئات التعلم · برنامج الماجستير المهني في تصميم التعلم والتكنولوجيا · جامعة الأميرة نورة بنت عبدالرحمن</p>
+    <h1>بيئة التعلم الشخصية: <span>التفاعل والحضور</span> في بيئات التعلم الرقمية</h1>
+    <p class="lede">الشاشات وحدها لا تصنع تعلمًا. جمعنا في هذه البيئة ستة أهداف وستة أعضاء، ولكل هدف المعايير نفسها: مصادر مكتوبة ومرئية ومسموعة، ودورات وورش عمل، وشهادة مهنية.</p>
+    <ul class="facts">
+      <li><b>6</b><span>أهداف</span></li>
+      <li><b>6</b><span>عضوات</span></li>
+      <li><b>24</b><span>مصدرًا مكتوبًا</span></li>
+      <li><b>12</b><span>دورة وورشة</span></li>
+      <li><b>6</b><span>شهادات مهنية</span></li>
+    </ul>
+  </div>
+</header>
+<nav class="topnav" aria-label="أقسام الموقع"><div class="wrap"><a href="#about">التمهيد</a><a href="#goals">الأهداف</a><a href="#team-goals">ربط الأهداف</a><a href="#sources">المصادر</a><a href="#tools">الأدوات</a><a href="#path">المسار المهني</a><a href="#network">الشبكة</a><a href="#plan">الخطة</a><a href="#team">الفريق</a></div></nav>
+
+<main class="wrap">
+<section id="about" class="block">
+  <h2><small>تمهيد</small>لماذا اخترنا هذا الموضوع؟</h2>
+  <div class="prose">
+    <p>اخترنا موضوع <strong>التفاعل والحضور في بيئات التعلم الرقمية</strong> لأننا لاحظنا في تجربتنا مع المقررات الإلكترونية أن وجود الطالبة في الجلسة أو دخولها إلى المنصة لا يعني بالضرورة أنها تتعلم. قد تكتمل الجلسة بحضور كامل دون أن تُطرح فكرة واحدة أو يحدث نقاش حقيقي.</p>
+    <p class="question">كيف نحوّل الحضور الشكلي إلى مشاركة فاعلة؟</p>
+    <p>هذه البيئة محاولتنا للإجابة عن هذا السؤال بطريقة منظمة. ربطنا فيها أهداف المجموعة بالأهداف الشخصية لكل عضو، وجمعنا لكل هدف مصادر متنوعة، ثم ربطنا هذه المكونات بأدوات رقمية وشبكة مهنية وخطة زمنية تدعم التعلم المستمر.</p>
+  </div>
+</section>
+
+<section id="goals" class="block">
+  <h2><small>أولًا</small>أهدافنا والكفايات المستهدفة</h2>
+  <p class="aim"><strong>الهدف العام:</strong> أن نفهم مفهوم التفاعل والحضور في البيئات الرقمية فهمًا يمكّننا من تصميم أنشطة وبيئات تعلم تحقق مشاركة فاعلة، ثم نقيس أثرها ونحسّنها.</p>
+  <div class="split">
+    <div>
+      <h3 class="sub">أهداف المجموعة</h3>
+      <ol class="goals-list"><li><a href="#goal-1"><b>1</b><span>فهم أهمية الحضور والتفاعل والتمييز بين الحضور الشكلي والمشاركة الفاعلة</span><em>رشا العريني</em></a></li><li><a href="#goal-2"><b>2</b><span>التعرف على استراتيجيات تعزيز الحضور التعليمي والتفاعل الاجتماعي</span><em>هنادي شعيب</em></a></li><li><a href="#goal-3"><b>3</b><span>توظيف الأدوات الرقمية لتصميم أنشطة تفاعلية تنمّي التفكير الناقد</span><em>نورة القحطاني</em></a></li><li><a href="#goal-4"><b>4</b><span>تطبيق استراتيجيات التحفيز والتلعيب لتعزيز المشاركة والدافعية</span><em>آية الجهني</em></a></li><li><a href="#goal-5"><b>5</b><span>تحديد أسباب ضعف التفاعل واقتراح الحلول المناسبة</span><em>وفاء السياري</em></a></li><li><a href="#goal-6"><b>6</b><span>قياس الحضور والتفاعل لتقويم الأنشطة الرقمية وتحسينها</span><em>سمية الحيدري</em></a></li></ol>
+    </div>
+    <figure class="cycle"><svg viewBox="0 0 520 460" role="img" aria-label="الأهداف الستة في دورة: كل هدف يبني على ما قبله والهدف السادس يعيد إلى الأول"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="cy-arrow"/></marker></defs><line x1="305.0" y1="91.0" x2="357.9" y2="121.5" class="cy-line" marker-end="url(#ah)"/><line x1="402.9" y1="199.5" x2="402.9" y2="260.5" class="cy-line" marker-end="url(#ah)"/><line x1="357.9" y1="338.5" x2="305.0" y2="369.0" class="cy-line" marker-end="url(#ah)"/><line x1="215.0" y1="369.0" x2="162.1" y2="338.5" class="cy-line" marker-end="url(#ah)"/><line x1="117.1" y1="260.5" x2="117.1" y2="199.5" class="cy-line" marker-end="url(#ah)"/><line x1="162.1" y1="121.5" x2="215.0" y2="91.0" class="cy-line" marker-end="url(#ah)"/><a href="#goal-1" class="cy-node"><circle cx="260.0" cy="65.0" r="46"/><text x="260.0" y="57.0" class="cy-num">1</text><text x="260.0" y="81.0" class="cy-lbl">الحضور والتفاعل</text></a><a href="#goal-2" class="cy-node"><circle cx="402.9" cy="147.5" r="46"/><text x="402.9" y="139.5" class="cy-num">2</text><text x="402.9" y="163.5" class="cy-lbl">استراتيجيات الحضور</text></a><a href="#goal-3" class="cy-node"><circle cx="402.9" cy="312.5" r="46"/><text x="402.9" y="304.5" class="cy-num">3</text><text x="402.9" y="328.5" class="cy-lbl">التفكير الناقد</text></a><a href="#goal-4" class="cy-node"><circle cx="260.0" cy="395.0" r="46"/><text x="260.0" y="387.0" class="cy-num">4</text><text x="260.0" y="411.0" class="cy-lbl">التحفيز والتلعيب</text></a><a href="#goal-5" class="cy-node"><circle cx="117.1" cy="312.5" r="46"/><text x="117.1" y="304.5" class="cy-num">5</text><text x="117.1" y="328.5" class="cy-lbl">أسباب ضعف التفاعل</text></a><a href="#goal-6" class="cy-node"><circle cx="117.1" cy="147.5" r="46"/><text x="117.1" y="139.5" class="cy-num">6</text><text x="117.1" y="163.5" class="cy-lbl">القياس والتقويم</text></a><text x="260" y="224" class="cy-c1">دورة تحسين</text><text x="260" y="250" class="cy-c2">الهدف 6 يعيدنا إلى 1</text></svg><figcaption>كل هدف يبني على ما قبله، ونتائج القياس في الهدف 6 تعيدنا لتحسين الأهداف الأولى.</figcaption></figure>
+  </div>
+  <h3 class="sub">الكفايات التي نريد تطويرها</h3>
+  <div class="tw"><table class=""><thead><tr><th scope="col">الكفاية</th><th scope="col">الأهداف التي تحققها</th></tr></thead><tbody><tr><td>تصميم أنشطة رقمية تعزز التفاعل والمشاركة الفاعلة</td><td>الأهداف 2 و3 و4</td></tr><tr><td>إدارة النقاشات الرقمية وتقديم التوجيه والتغذية الراجعة</td><td>الأهداف 1 و2 و3</td></tr><tr><td>توظيف أدوات التواصل والتعاون لبناء مجتمع تعلم رقمي</td><td>الأهداف 1 و2 و5</td></tr><tr><td>تقويم جودة التفاعل والحضور لتحسين تجربة التعلم</td><td>الأهداف 5 و6</td></tr></tbody></table></div>
+</section>
+
+<section id="team-goals" class="block">
+  <h2><small>ثانيًا</small>ربط أهداف المجموعة بالأهداف الشخصية</h2>
+  <p>وزّعنا الأهداف الستة بالتساوي: تتولى كل عضو هدفًا رئيسيًا واحدًا، وتصوغ هدفًا شخصيًا يخدمه.</p>
+  <div class="tw"><table class=""><thead><tr><th scope="col">الهدف</th><th scope="col">العضو المسؤول</th><th scope="col">الهدف الشخصي المرتبط به</th></tr></thead><tbody><tr><td>الهدف 1</td><td>رشا العريني</td><td>أن أفهم أنواع الحضور الثلاثة (الاجتماعي والتدريسي والمعرفي)، وأميّز في مقرراتي بين الحضور الشكلي والمشاركة الفاعلة.</td></tr><tr><td>الهدف 2</td><td>هنادي شعيب</td><td>أن أطبّق استراتيجيتين على الأقل لتعزيز التفاعل في نقاش رقمي، مثل التعلم التعاوني والأسئلة المفتوحة، وأقيس أثرهما.</td></tr><tr><td>الهدف 3</td><td>نورة القحطاني</td><td>أن أصمم نشاطًا رقميًا يقوم على سؤال مفتوح، يدفع الزميلات إلى التحليل وتقييم الحجج لا مجرد الرد، وأقيّمه بسلّم تقدير للتفكير الناقد.</td></tr><tr><td>الهدف 4</td><td>آية الجهني</td><td>أن أفهم متى ينجح التلعيب ومتى يكون مجرد زينة، وأصمم نشاطًا ملعّبًا لدرس واحد على Kahoot أو Nearpod وأجربه مع زميلاتي.</td></tr><tr><td>الهدف 5</td><td>وفاء السياري</td><td>أن أحصر أهم أسباب ضعف التفاعل من الدراسات المنشورة، وأقترح حلًا عمليًا لكل سبب وأربطه بأداة أو استراتيجية من بيئتنا.</td></tr><tr><td>الهدف 6</td><td>سمية الحيدري</td><td>أن أبني استبانة قصيرة مبنية على نموذج مجتمع الاستقصاء، وأحلل بها مع تقارير المنصة تفاعل الزميلات في أنشطة البيئة.</td></tr></tbody></table></div>
+  <h3 class="sub">مساهمة كل عضو في أهداف الفريق</h3>
+  <p>لكل عضو هدف <strong>رئيسي</strong> واحد تتولاه، وهدفان <strong>داعمان</strong> تشارك فيهما، ولكل هدف عضو رئيسية وعضوان داعمتان.</p>
+  <div class="tw"><table class="matrix"><thead><tr><th scope="col">العضو</th><th scope="col"><a href="#goal-1">الهدف 1</a></th><th scope="col"><a href="#goal-2">الهدف 2</a></th><th scope="col"><a href="#goal-3">الهدف 3</a></th><th scope="col"><a href="#goal-4">الهدف 4</a></th><th scope="col"><a href="#goal-5">الهدف 5</a></th><th scope="col"><a href="#goal-6">الهدف 6</a></th></tr></thead><tbody><tr><th scope="row">رشا العريني</th><td><span class="chip p">رئيسي</span></td><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td></tr><tr><th scope="row">هنادي شعيب</th><td><span class="chip s">داعم</span></td><td><span class="chip p">رئيسي</span></td><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td><td><span class="dash">·</span></td><td><span class="dash">·</span></td></tr><tr><th scope="row">نورة القحطاني</th><td><span class="dash">·</span></td><td><span class="dash">·</span></td><td><span class="chip p">رئيسي</span></td><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td></tr><tr><th scope="row">آية الجهني</th><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td><td><span class="chip p">رئيسي</span></td><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td></tr><tr><th scope="row">وفاء السياري</th><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td><td><span class="chip p">رئيسي</span></td><td><span class="dash">·</span></td></tr><tr><th scope="row">سمية الحيدري</th><td><span class="dash">·</span></td><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td><td><span class="dash">·</span></td><td><span class="chip s">داعم</span></td><td><span class="chip p">رئيسي</span></td></tr></tbody></table></div>
+  <ul class="list"><li><strong>رشا (الهدف 1):</strong> تبني الإطار النظري للحضور، وتدعم هنادي في الاستراتيجيات، ووفاء في تفسير أسباب ضعف التفاعل.</li><li><strong>هنادي (الهدف 2):</strong> تجمع استراتيجيات الحضور التعليمي والاجتماعي، وتدعم رشا في الإطار، ونورة في تطبيق الاستراتيجيات داخل نشاط التفكير الناقد.</li><li><strong>نورة (الهدف 3):</strong> تصمم نشاط التفكير الناقد، وتدعم آية في دمج التحدي داخل النشاط، وسمية في قياس الحضور المعرفي.</li><li><strong>آية (الهدف 4):</strong> تصمم النشاط الملعّب، وتدعم هنادي بالمحفزات ضمن الاستراتيجيات، وسمية بتسليم بيانات المشاركة في النشاط.</li><li><strong>وفاء (الهدف 5):</strong> تحصر أسباب ضعف التفاعل وتقترح حلولها، وتدعم رشا بأمثلة الحضور الشكلي، وآية بربط الحلول بالتحفيز.</li><li><strong>سمية (الهدف 6):</strong> تقيس أثر الأنشطة، وتدعم نورة في تقويم نشاط التفكير الناقد، ووفاء في التحقق هل عالجت الحلول أسباب الضعف.</li></ul>
+  <h3 class="sub">كيف ترتبط أهداف الفريق ببعضها</h3>
+  <div class="tw"><table class=""><thead><tr><th scope="col">الهدف</th><th scope="col">دوره في الفريق</th><th scope="col">يعتمد على</th><th scope="col">يغذّي</th></tr></thead><tbody><tr><td>الهدف 1</td><td>يحدد معنى الحضور والتفاعل وأنواعهما، وهو الأساس المشترك لبقية الأهداف</td><td>—</td><td>الأهداف 2 و5 و6</td></tr><tr><td>الهدف 2</td><td>يقدّم الاستراتيجيات التي نعزز بها الحضور التعليمي والاجتماعي</td><td>الهدف 1</td><td>الأهداف 3 و4 و5</td></tr><tr><td>الهدف 3</td><td>يحوّل الاستراتيجيات إلى نشاط رقمي ينمّي التفكير الناقد (الحضور المعرفي)</td><td>الهدف 2</td><td>الهدف 6</td></tr><tr><td>الهدف 4</td><td>يضيف التحفيز والتلعيب لرفع الدافعية والمشاركة</td><td>الهدف 2</td><td>الأهداف 3 و5 و6</td></tr><tr><td>الهدف 5</td><td>يشخّص أسباب ضعف التفاعل ويقترح حلولًا من الأهداف 2 و3 و4</td><td>الأهداف 1 و2 و4</td><td>الهدف 6</td></tr><tr><td>الهدف 6</td><td>يقيس أثر الأنشطة والحلول، ونتائجه تعيدنا لتحسين الأهداف السابقة</td><td>الأهداف 3 و4 و5</td><td>جميع الأهداف (دورة تحسين)</td></tr></tbody></table></div>
+</section>
+
+<section id="sources" class="block">
+  <h2><small>ثالثًا</small>مصادر وفرص التعلم لكل هدف</h2>
+  <p>اعتمدنا <strong>المعايير نفسها لكل هدف</strong> وبالترتيب نفسه:</p>
+  <ol class="std">
+    <li><b>4</b> مصادر مكتوبة: بحث علمي، ومقال أكاديمي، ودليل تطبيقي، ومرجع رسمي</li>
+    <li><b>2</b> مصدران مرئيان: ندوة أو حلقة نقاش أو مقطع، مع ماذا نتوقع أن نعرف منه</li>
+    <li><b>1</b> حلقة بودكاست</li>
+    <li><b>2</b> دورتان تدريبيتان أو ورشتا عمل</li>
+    <li><b>1</b> شهادة مهنية، مع الجهة والشروط ومتطلبات الالتحاق والرابط</li>
+  </ol>
+  <nav class="goalnav" aria-label="انتقال إلى هدف"><a href="#goal-1"><b>1</b> الحضور والتفاعل</a><a href="#goal-2"><b>2</b> استراتيجيات الحضور</a><a href="#goal-3"><b>3</b> التفكير الناقد</a><a href="#goal-4"><b>4</b> التحفيز والتلعيب</a><a href="#goal-5"><b>5</b> أسباب ضعف التفاعل</a><a href="#goal-6"><b>6</b> القياس والتقويم</a></nav>
+  
+<section class="goal" id="goal-1">
+  <header class="goal-head">
+    <div class="goal-num" aria-hidden="true">1</div>
+    <div class="goal-meta">
+      <p class="eyebrow">الهدف 1 من 6</p>
+      <h3>فهم أهمية الحضور والتفاعل والتمييز بين الحضور الشكلي والمشاركة الفاعلة</h3>
+      <p class="owner"><span>العضو المسؤول</span> رشا العريني</p>
+      <p class="personal"><span>الهدف الشخصي</span> أن أفهم أنواع الحضور الثلاثة (الاجتماعي والتدريسي والمعرفي)، وأميّز في مقرراتي بين الحضور الشكلي والمشاركة الفاعلة.</p>
+    </div>
+  </header>
+  <div class="tally" aria-label="مكونات الهدف">
+    <span>4 مصادر مكتوبة</span><span>2 مرئي</span><span>1 بودكاست</span><span>2 دورة / ورشة</span><span>1 شهادة مهنية</span>
+  </div>
+  <h4><b>1</b> المصادر المكتوبة</h4><div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>بحث علمي</td><td>واقع الحضور الاجتماعي في حالة الفصل في التعليم باستخدام نظام إدارة التعلم البلاك بورد، رهام الحيلان ومحمد الحجيلان (2019)</td><td><a href="https://faculty.ksu.edu.sa/en/malhojailan/publication/305157" target="_blank" rel="noopener">صفحة البحث</a></td><td>فهم العوامل المؤثرة في الحضور الاجتماعي، ودور المعلم وتصميم المناقشات في تعزيز التفاعل.</td></tr><tr><td>مقال أكاديمي</td><td>نموذج مجتمع الاستقصاء (Community of Inquiry)، جامعة أثاباسكا</td><td><a href="https://coi.athabascau.ca/coi-model/" target="_blank" rel="noopener">coi.athabascau.ca</a></td><td>الإطار النظري الذي يقسّم الحضور إلى اجتماعي وتدريسي ومعرفي، ونبني عليه فهمنا لبقية الأهداف.</td></tr><tr><td>دليل تطبيقي</td><td>Strengthening Your Online Presence in Remote Courses، جامعة كاليفورنيا ديفيس</td><td><a href="https://keepteaching.ucdavis.edu/build-your-online-presence" target="_blank" rel="noopener">UC Davis</a></td><td>خطوات عملية لبناء حضور المعلم وتعارف الطالبات: التعريف بالنفس، والتواصل المنتظم، ومساحات الأسئلة، وأنشطة كسر الجليد، والفرق الصغيرة.</td></tr><tr><td>مرجع رسمي</td><td>معايير التعليم الإلكتروني، المركز الوطني للتعليم الإلكتروني</td><td><a href="https://nelc.gov.sa/regulations-and-standards/elearning-standards" target="_blank" rel="noopener">nelc.gov.sa</a></td><td>أقسام المشاركة والتفاعل والتواصل والتغذية الراجعة، لتحديد ممارسات تدعم الحضور التدريسي والاجتماعي.</td></tr></tbody></table></div>
+  <h4><b>2</b> المصادر المرئية</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>تفاعل الطالب في التعليم الإلكتروني (ندوة مسجلة)</td><td>المركز الوطني للتعليم الإلكتروني</td><td><a href="https://www.youtube.com/watch?v=dvdPKTBnsDo" target="_blank" rel="noopener">يوتيوب</a></td><td>نتوقع أن نعرف لماذا يُعد نشاط المتعلم ومشاركته شرطًا لنجاح التعلم الإلكتروني، وكيف نفرّق بين الحضور الشكلي والمشاركة الفاعلة.</td></tr><tr><td>Creating Meaningful Social Presence in Online Classes (جلسة تفاعلية مسجلة)</td><td>Adam Cohen – جامعة نوفا ساوث إيسترن</td><td><a href="https://sharkmedia.nova.edu/media/Creating+Meaningful+Social+Presence+in+Online+Classes/1_j56a7ocb" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع أن نعرف تعريف الحضور الاجتماعي وفق نموذج مجتمع الاستقصاء، واستراتيجيات تجعله مستمرًا في المقرر.</td></tr></tbody></table></div>
+  <h4><b>3</b> البودكاست</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">الحلقة</th><th scope="col">الجهة</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منها</th></tr></thead><tbody><tr><td>مقابلة صوتية مع د. Randy Garrison عن نموذج مجتمع الاستقصاء</td><td>موقع نموذج مجتمع الاستقصاء – جامعة أثاباسكا</td><td><a href="https://coi.athabascau.ca/coi-model/" target="_blank" rel="noopener">صفحة المقابلة</a></td><td>نتوقع أن نعرف كيف نشأ النموذج، وكيف يُستخدم في تصميم التعليم الإلكتروني ليجمع أنواع الحضور الثلاثة.</td></tr></tbody></table></div>
+  <h4><b>4</b> الدورات التدريبية وورش العمل</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الدورة / الورشة</th><th scope="col">الجهة المقدمة</th><th scope="col">الشروط ومتطلبات الالتحاق والمحتوى</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>ورشة عمل: Creating Presence in Your Online Course</td><td>منظمة Quality Matters</td><td>ورشة يقودها ميسّر، إما عن بعد خلال أسبوعين (14 ساعة على الأقل) أو افتراضية خلال أسبوع فيها جلسة مباشرة مدتها ساعتان. شرطها إجادة القراءة والكتابة بالإنجليزية. رسومها 330 دولارًا (220 للأعضاء). هدفها: كيف نصنع حضور المعلم والحضور الاجتماعي والمعرفي في المقرر.</td><td><a href="https://www.qualitymatters.org/node/111" target="_blank" rel="noopener">Quality Matters</a></td></tr><tr><td>دورة: Learning to Teach Online</td><td>جامعة نيو ساوث ويلز UNSW عبر Coursera</td><td>مجانية للتعلم الذاتي، والشهادة اختيارية برسوم. لا تتطلب خبرة سابقة. محاورها: تصميم التعليم الإلكتروني وتوظيف أدوات التواصل وإشراك المتعلمين.</td><td><a href="https://www.coursera.org/learn/teach-online" target="_blank" rel="noopener">Coursera</a></td></tr></tbody></table></div>
+  <h4><b>5</b> الشهادة المهنية</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الشروط ومتطلبات الالتحاق</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>شهادة التدريس الإلكتروني (Online Teaching Certificate)</td><td>اتحاد التعلم الإلكتروني (OLC)</td><td>إكمال مقرر تأسيسي ومقررات اختيارية، ثم تصميم مقرر إلكتروني أو تطويره بإشراف موجّه. الشهادة برسوم، وللأعضاء خصم. ترتبط بالهدف لأنها تركّز على جودة التدريس والتفاعل عن بعد.</td><td><a href="https://onlinelearningconsortium.org/otc-basic-certificate/" target="_blank" rel="noopener">OLC</a></td></tr></tbody></table></div>
+</section>
+<section class="goal" id="goal-2">
+  <header class="goal-head">
+    <div class="goal-num" aria-hidden="true">2</div>
+    <div class="goal-meta">
+      <p class="eyebrow">الهدف 2 من 6</p>
+      <h3>التعرف على استراتيجيات تعزيز الحضور التعليمي والتفاعل الاجتماعي</h3>
+      <p class="owner"><span>العضو المسؤول</span> هنادي شعيب</p>
+      <p class="personal"><span>الهدف الشخصي</span> أن أطبّق استراتيجيتين على الأقل لتعزيز التفاعل في نقاش رقمي، مثل التعلم التعاوني والأسئلة المفتوحة، وأقيس أثرهما.</p>
+    </div>
+  </header>
+  <div class="tally" aria-label="مكونات الهدف">
+    <span>4 مصادر مكتوبة</span><span>2 مرئي</span><span>1 بودكاست</span><span>2 دورة / ورشة</span><span>1 شهادة مهنية</span>
+  </div>
+  <h4><b>1</b> المصادر المكتوبة</h4><div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>بحث علمي</td><td>أثر اختلاف نمط حضور المدرب (صوتي – مرئي) في بيئة التدريب الإلكتروني المتزامن وتفاعله مع مستوى اليقظة العقلية على كفاءة التدريب والتدفق الأكاديمي لدى طلاب جامعة الملك سعود، حسن غانم وسعد هنداوي (2022)</td><td><a href="https://faculty.ksu.edu.sa/ar/hghanem/publication/402194" target="_blank" rel="noopener">صفحة البحث</a></td><td>يبيّن أن طريقة حضور المعلم في الجلسة المتزامنة تؤثر في كفاءة التعلم والتدفق الأكاديمي، فنستفيد منه في اختيار نمط حضورنا التدريسي.</td></tr><tr><td>مقال أكاديمي</td><td>Strategies for Promoting Teaching Presence in your Online Courses، Jessica Critten، جامعة كولورادو (2021)</td><td><a href="https://www.cu.edu/blog/online-teaching-blog/strategies-promoting-teaching-presence-your-online-courses" target="_blank" rel="noopener">cu.edu</a></td><td>يقسّم الحضور التدريسي إلى: التصميم والتنظيم، وتيسير النقاش، والتدريس المباشر، ويقدّم استراتيجيات لكل جزء.</td></tr><tr><td>دليل تطبيقي</td><td>دليل لوحات النقاش في نظام التعليم الإلكتروني، جامعة الجوف</td><td><a href="https://ju.edu.sa/en/discussion-boards-guide-e-learning-administration" target="_blank" rel="noopener">الدليل العربي</a></td><td>تنظيم مساحة نقاش تتيح طرح الأسئلة وتبادل الأفكار والرد على الزميلات ومتابعة المشاركات.</td></tr><tr><td>مرجع رسمي</td><td>معايير التعليم الإلكتروني، المركز الوطني للتعليم الإلكتروني</td><td><a href="https://nelc.gov.sa/regulations-and-standards/elearning-standards" target="_blank" rel="noopener">nelc.gov.sa</a></td><td>نتأكد أن الاستراتيجيات التي نختارها تتوافق مع المعايير الوطنية للتفاعل.</td></tr></tbody></table></div>
+  <h4><b>2</b> المصادر المرئية</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>استراتيجيات قليلة الجهد وعالية التأثير لجعل طلابك أكثر تفاعلًا (حلقة نقاش)</td><td>مركز التميز في التعلم والتعليم – جامعة الملك سعود</td><td><a href="https://celt.ksu.edu.sa/ar/node/5262" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع استراتيجيات تعلم نشط وتعاوني يمكن تكييفها في البيئات الرقمية.</td></tr><tr><td>Increasing Teaching Presence with Video: Why, When, and How? (ندوة إلكترونية)</td><td>Christian Broderick – Kaltura</td><td><a href="https://corp.kaltura.com/resources/webinars/kamp-increasing-teaching-presence-video.md" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع أن نعرف لماذا يقوّي الفيديو الحضور التدريسي، ومتى نستخدمه وكيف.</td></tr></tbody></table></div>
+  <h4><b>3</b> البودكاست</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">الحلقة</th><th scope="col">الجهة</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منها</th></tr></thead><tbody><tr><td>Teaching in Higher Ed، الحلقة 624: How to Engage Learners in Online Courses مع Denise Maduli-Williams</td><td>بودكاست Teaching in Higher Ed</td><td><a href="https://poddtoppen.se/podcast/893035230/teaching-in-higher-ed/how-to-engage-learners-in-online-courses-with-denise-maduli-williams" target="_blank" rel="noopener">صفحة الحلقة</a></td><td>نتوقع أفكارًا عملية لإشراك المتعلمين عن بعد، منها رسالة ترحيب مرئية من المعلم، وإتاحة وقت للطالبات الهادئات ليستعددن قبل المشاركة.</td></tr></tbody></table></div>
+  <h4><b>4</b> الدورات التدريبية وورش العمل</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الدورة / الورشة</th><th scope="col">الجهة المقدمة</th><th scope="col">الشروط ومتطلبات الالتحاق والمحتوى</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>دورة: Get Interactive: Practical Teaching with Technology</td><td>جامعة لندن عبر Coursera</td><td>مجانية للتعلم الذاتي، والشهادة اختيارية برسوم. لا تتطلب خبرة سابقة. تركّز على توظيف التقنية لجعل التدريس تفاعليًا.</td><td><a href="https://www.coursera.org/learn/getinmooc" target="_blank" rel="noopener">Coursera</a></td></tr><tr><td>ورشة عمل: Applying the QM Rubric (APPQMR)</td><td>منظمة Quality Matters</td><td>عن بعد خلال أسبوعين (10 إلى 12 ساعة أسبوعيًا) أو افتراضية مدتها 7.5 ساعات. شرطها إجادة الإنجليزية المكتوبة. رسومها 330 دولارًا (220 للأعضاء). نتعلم فيها معايير جودة المقرر الإلكتروني، ومنها معايير التفاعل والمشاركة.</td><td><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr" target="_blank" rel="noopener">Quality Matters</a></td></tr></tbody></table></div>
+  <h4><b>5</b> الشهادة المهنية</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الشروط ومتطلبات الالتحاق</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>مراجع معتمد من Quality Matters (QM-Certified Peer Reviewer)</td><td>منظمة Quality Matters</td><td>اجتياز ورشة APPQMR أولًا، ثم مقرر المراجع النظير (Peer Reviewer Course). تؤهل لمراجعة جودة المقررات الإلكترونية، ومنها جودة استراتيجيات التفاعل.</td><td><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr" target="_blank" rel="noopener">Quality Matters</a></td></tr></tbody></table></div>
+</section>
+<section class="goal" id="goal-3">
+  <header class="goal-head">
+    <div class="goal-num" aria-hidden="true">3</div>
+    <div class="goal-meta">
+      <p class="eyebrow">الهدف 3 من 6</p>
+      <h3>توظيف الأدوات الرقمية لتصميم أنشطة تفاعلية تنمّي التفكير الناقد</h3>
+      <p class="owner"><span>العضو المسؤول</span> نورة القحطاني</p>
+      <p class="personal"><span>الهدف الشخصي</span> أن أصمم نشاطًا رقميًا يقوم على سؤال مفتوح، يدفع الزميلات إلى التحليل وتقييم الحجج لا مجرد الرد، وأقيّمه بسلّم تقدير للتفكير الناقد.</p>
+    </div>
+  </header>
+  <div class="tally" aria-label="مكونات الهدف">
+    <span>4 مصادر مكتوبة</span><span>2 مرئي</span><span>1 بودكاست</span><span>2 دورة / ورشة</span><span>1 شهادة مهنية</span>
+  </div>
+  <h4><b>1</b> المصادر المكتوبة</h4><div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>بحث علمي</td><td>أثر استراتيجية الويب كويست في تنمية مهارات التفكير الناقد لدى طالبات كلية التربية في جامعة الملك سعود، راشد العبد الكريم وآمنة حجر (2018)</td><td><a href="https://search.shamaa.org/FullRecord?ID=269925" target="_blank" rel="noopener">شمعة</a></td><td>دليل تجريبي على أن نشاطًا رقميًا مصممًا جيدًا يرفع مهارات التفكير الناقد، ونموذج لبناء مهمة بحثية موجّهة.</td></tr><tr><td>مقال أكاديمي</td><td>Teaching Critical Thinking through Online Discussions، Carol MacKnight، EDUCAUSE</td><td><a href="https://www.educause.edu/ero/article/teaching-critical-thinking-through-online-discussions" target="_blank" rel="noopener">EDUCAUSE</a></td><td>كيف تُصاغ أسئلة النقاش الإلكتروني ويُدار الحوار ليقود إلى الاستدلال والتحليل.</td></tr><tr><td>دليل تطبيقي</td><td>Padlet in the Digital Classroom، موارد التدريس التقنية بجامعة ستانفورد</td><td><a href="https://teachingresources.stanford.edu/resources/how-to-utilize-padlet" target="_blank" rel="noopener">Stanford</a></td><td>خطوات عملية لاستخدام Padlet في طرح أسئلة مفتوحة وتبادل الأفكار والتعليق على مشاركات الزميلات.</td></tr><tr><td>مرجع رسمي</td><td>Fostering Students&#x27; Creativity and Critical Thinking، منظمة التعاون الاقتصادي والتنمية OECD (2019)</td><td><a href="https://www.oecd-ilibrary.org/education/fostering-students-creativity-and-critical-thinking_62212c37-en" target="_blank" rel="noopener">OECD</a></td><td>إطار دولي وسلالم تقدير لتعريف التفكير الناقد وقياسه، نستند إليه في صياغة أهداف الأنشطة وتقويمها.</td></tr></tbody></table></div>
+  <h4><b>2</b> المصادر المرئية</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>Supporting Critical Thinking with Technology in the Classroom</td><td>يوتيوب</td><td><a href="https://www.youtube.com/watch?v=RGgMrHe_SZE" target="_blank" rel="noopener">يوتيوب</a></td><td>نتوقع أمثلة على توظيف التقنية داخل الصف لتحفيز التساؤل والتحليل بدل الاستقبال السلبي للمعلومة.</td></tr><tr><td>التربية على التفكير الناقد: كيف نعلّم الطالب أن يفكّر؟</td><td>يوتيوب</td><td><a href="https://www.youtube.com/watch?v=G57PfUo0POo" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع أن نعرف كيف نبني أسئلة وأنشطة تنقل الطالب من الحفظ إلى التحليل والتقييم.</td></tr></tbody></table></div>
+  <h4><b>3</b> البودكاست</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">الحلقة</th><th scope="col">الجهة</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منها</th></tr></thead><tbody><tr><td>Teach &amp; Learn، الموسم 2 الحلقة 8: The Importance of Critical Thinking مع د. Aleigha Henderson-Rosser (30 دقيقة)</td><td>بودكاست Teach &amp; Learn من D2L</td><td><a href="https://www.d2l.com/podcasts/teach-and-learn/the-importance-of-critical-thinking-in-k-12-classrooms-with-dr-aleigha-henderson-rosser/" target="_blank" rel="noopener">صفحة الحلقة</a></td><td>نتوقع أن نعرف لماذا يحتاج الطالب أن يتعلم كيف يفكر لا كيف يسترجع المعلومة، وكيف تدعم التقنية والتعلم القائم على الاستقصاء ذلك، وكيف يتغيّر التقويم تبعًا لذلك.</td></tr></tbody></table></div>
+  <h4><b>4</b> الدورات التدريبية وورش العمل</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الدورة / الورشة</th><th scope="col">الجهة المقدمة</th><th scope="col">الشروط ومتطلبات الالتحاق والمحتوى</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>دورة: تنمية مهارات التفكير الناقد في بيئات التعلم الرقمي</td><td>المعهد الوطني للتطوير المهني التعليمي عبر منصة FutureX</td><td>دورة إلكترونية عربية تتطلب التسجيل في منصة FutureX. محورها مهارات التفكير الناقد وطرق تنميتها في البيئات الرقمية.</td><td><a href="https://niepd.futurex.sa/courses/course-v1:NIEPD+0011+2023/about" target="_blank" rel="noopener">FutureX</a></td></tr><tr><td>دورات تدريبية: مركز التعلم من Google for Education</td><td>Google for Education</td><td>دورات مجانية ذاتية التعلم بمستويين (أساسي ومتقدم)، تحتاج حساب Google فقط. نتعلم فيها بناء أنشطة تفاعلية بأدوات Google، وهي التحضير الرسمي لشهادة Google.</td><td><a href="https://edu.google.com/intl/ALL_us/learning-center/" target="_blank" rel="noopener">Google</a></td></tr></tbody></table></div>
+  <h4><b>5</b> الشهادة المهنية</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الشروط ومتطلبات الالتحاق</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>المعلم المعتمد من مايكروسوفت (Microsoft Certified Educator)</td><td>Microsoft عبر مراكز Certiport</td><td>اختبار 62-193 مراقَب مدته 60 دقيقة، ولا يتطلب شروطًا سابقة. يقيس توظيف التقنية في ست مجالات منها حل المشكلات الواقعية والتعاون والتنظيم الذاتي. تختلف الرسوم حسب الدولة، ويمكن إعادته بعد 24 ساعة.</td><td><a href="https://learn.microsoft.com/en-us/credentials/microsoft-certified-educator/" target="_blank" rel="noopener">Microsoft Learn</a></td></tr></tbody></table></div>
+</section>
+<section class="goal" id="goal-4">
+  <header class="goal-head">
+    <div class="goal-num" aria-hidden="true">4</div>
+    <div class="goal-meta">
+      <p class="eyebrow">الهدف 4 من 6</p>
+      <h3>تطبيق استراتيجيات التحفيز والتلعيب لتعزيز المشاركة والدافعية</h3>
+      <p class="owner"><span>العضو المسؤول</span> آية الجهني</p>
+      <p class="personal"><span>الهدف الشخصي</span> أن أفهم متى ينجح التلعيب ومتى يكون مجرد زينة، وأصمم نشاطًا ملعّبًا لدرس واحد على Kahoot أو Nearpod وأجربه مع زميلاتي.</p>
+    </div>
+  </header>
+  <div class="tally" aria-label="مكونات الهدف">
+    <span>4 مصادر مكتوبة</span><span>2 مرئي</span><span>1 بودكاست</span><span>2 دورة / ورشة</span><span>1 شهادة مهنية</span>
+  </div>
+  <h4><b>1</b> المصادر المكتوبة</h4><div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>بحث علمي</td><td>أثر التلعيب على تحفيز الطلاب واندماجهم في التعلم: دراسة تطبيقية، حماده السعدون (2023)، دراسات: العلوم التربوية</td><td><a href="https://doi.org/10.35516/edu.v50i2.255" target="_blank" rel="noopener">DOI</a></td><td>دراسة في الجامعة السعودية الإلكترونية أثبتت أن البيئة الملعّبة ترفع الدافعية والاندماج، مع توصيات للتصميم.</td></tr><tr><td>مقال أكاديمي</td><td>7 Things You Should Know About Gamification، مبادرة التعلم في EDUCAUSE</td><td><a href="https://library.educause.edu/resources/2011/8/7-things-you-should-know-about-gamification" target="_blank" rel="noopener">EDUCAUSE</a></td><td>موجز عن أدوات التلعيب (النقاط، الشارات، لوحات الصدارة) ودورها في إشراك الطالبات الأقل مشاركة.</td></tr><tr><td>دليل تطبيقي</td><td>Kahoot! – دليل أفضل الممارسات، TESL Ontario</td><td><a href="https://bestpractices.teslontario.org/en/all-resources/kahoot/" target="_blank" rel="noopener">TESL Ontario</a></td><td>خطوات إنشاء مسابقات تفاعلية فردية وجماعية لتقديم الدرس أو مراجعته.</td></tr><tr><td>مرجع رسمي</td><td>صفحة تقنية التلعيب، البوابة الرسمية لحكومة الإمارات</td><td><a href="https://u.ae/ar/about-the-uae/digital-uae/digital-transformation/safe-and-convenient-digital-experience/gamification" target="_blank" rel="noopener">u.ae</a></td><td>تعريف رسمي مختصر مع أمثلة لتطبيق التلعيب في جهات حكومية وتعليمية.</td></tr></tbody></table></div>
+  <h4><b>2</b> المصادر المرئية</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>مفهوم التلعيب في التعلم الإلكتروني (ندوة، 58 دقيقة)</td><td>KKUTV، د. تغريد الرحيلي</td><td><a href="https://www.youtube.com/watch?v=2-Vjgg2oHds" target="_blank" rel="noopener">يوتيوب</a></td><td>نتوقع أن نعرف المفهوم من منظور أكاديمية سعودية متخصصة في تقنيات التعليم، وكيف يوظَّف التلعيب داخل التعلم الإلكتروني تحديدًا.</td></tr><tr><td>التلعيب في التعليم الإلكتروني (ساعة و9 دقائق)</td><td>مساق للتدريب الرقمي، أ. إسراء ورار</td><td><a href="https://www.youtube.com/watch?v=-OI9fESjJx4" target="_blank" rel="noopener">يوتيوب</a></td><td>نتوقع أن نعرف عناصر التلعيب و<strong>خطوات تصميمه</strong>، وهو ما نحتاجه لتصميم النشاط الملعّب.</td></tr></tbody></table></div>
+  <h4><b>3</b> البودكاست</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">الحلقة</th><th scope="col">الجهة</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منها</th></tr></thead><tbody><tr><td>Lesson Impossible: حلقة مع Batsheva Frankel عن التلعيب والتعلم القائم على الألعاب (34 دقيقة)</td><td>بودكاست Lesson Impossible</td><td><a href="https://lessonimpossible.podbean.com/e/agent-batsheva-frankel-gamification-game-based-learning/" target="_blank" rel="noopener">Podbean</a></td><td>نتوقع أن نفهم الفرق بين التلعيب والتعلم القائم على الألعاب بأمثلة واضحة.</td></tr></tbody></table></div>
+  <h4><b>4</b> الدورات التدريبية وورش العمل</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الدورة / الورشة</th><th scope="col">الجهة المقدمة</th><th scope="col">الشروط ومتطلبات الالتحاق والمحتوى</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>دورة: تقنيات الألعاب التحفيزية Gamification</td><td>منصة إدراك</td><td>مجانية بشهادة إتمام، وتتطلب التسجيل في المنصة. محاورها: تعريف التلعيب، والمحفزات، وعناصر الألعاب، وإطار التحفيز الثماني، وبناء نظام ملعّب.</td><td><a href="https://www.edraak.org/programs/course/ga_sp-v2018_sp/" target="_blank" rel="noopener">إدراك</a></td></tr><tr><td>دورة: Gamification</td><td>جامعة بنسلفانيا عبر Coursera، Kevin Werbach</td><td>مجانية للتعلم الذاتي، والشهادة برسوم. مدتها نحو أسبوعين بمعدل 10 ساعات أسبوعيًا. محاورها: الدافعية وعلم النفس وتصميم نظام ملعّب.</td><td><a href="https://www.coursera.org/learn/gamification" target="_blank" rel="noopener">Coursera</a></td></tr></tbody></table></div>
+  <h4><b>5</b> الشهادة المهنية</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الشروط ومتطلبات الالتحاق</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>شهادة Google Certified Educator Level 1</td><td>Google for Education</td><td>اختبار إلكتروني مراقَب بالكاميرا، رسومه 10 دولارات، والنتيجة خلال 3 أيام عمل، ويمكن إعادته بعد 3 أيام. تثبت مهارتي في أدوات Google التي أبني بها أنشطة تفاعلية ومسابقات.</td><td><a href="https://edu.google.com/for-educators/frequently-asked-questions" target="_blank" rel="noopener">Google for Education</a></td></tr></tbody></table></div>
+</section>
+<section class="goal" id="goal-5">
+  <header class="goal-head">
+    <div class="goal-num" aria-hidden="true">5</div>
+    <div class="goal-meta">
+      <p class="eyebrow">الهدف 5 من 6</p>
+      <h3>تحديد أسباب ضعف التفاعل واقتراح الحلول المناسبة</h3>
+      <p class="owner"><span>العضو المسؤول</span> وفاء السياري</p>
+      <p class="personal"><span>الهدف الشخصي</span> أن أحصر أهم أسباب ضعف التفاعل من الدراسات المنشورة، وأقترح حلًا عمليًا لكل سبب وأربطه بأداة أو استراتيجية من بيئتنا.</p>
+    </div>
+  </header>
+  <div class="tally" aria-label="مكونات الهدف">
+    <span>4 مصادر مكتوبة</span><span>2 مرئي</span><span>1 بودكاست</span><span>2 دورة / ورشة</span><span>1 شهادة مهنية</span>
+  </div>
+  <h4><b>1</b> المصادر المكتوبة</h4><div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>بحث علمي</td><td>واقع الحضور الاجتماعي في حالة الفصل في التعليم (Segregation) من وجهة نظر وخبرات طالبات الدراسات العليا بجامعة الملك سعود باستخدام نظام إدارة التعلم بلاك بورد</td><td><a href="https://jsre.journals.ekb.eg/article_57253.html" target="_blank" rel="noopener">بنك المعرفة المصري</a></td><td>يكشف من تجربة طالبات دراسات عليا سعوديات العوامل التي تُضعف الحضور الاجتماعي في البيئة الرقمية.</td></tr><tr><td>مقال أكاديمي</td><td>Eight Ways to Increase Social Presence in Your Online Classes، Hong Wang، Faculty Focus (2010)</td><td><a href="https://www.facultyfocus.com/articles/online-education/eight-ways-to-increase-social-presence-in-your-online-classes" target="_blank" rel="noopener">Faculty Focus</a></td><td>ثماني طرق عملية لمعالجة ضعف الحضور الاجتماعي، منها رسالة الترحيب والمشاركة الفاعلة في النقاش والجلسات المتزامنة.</td></tr><tr><td>دليل تطبيقي</td><td>Best Practices That Support Student Engagement، جامعة ليكهيد</td><td><a href="https://www.lakeheadu.ca/teaching-commons/pedagogy-toolkit/teaching-your-course/managing-student-engagement" target="_blank" rel="noopener">Lakehead</a></td><td>خطوات للتواصل مع الطالبات المنقطعات عن المقرر في الأسابيع الأولى وإعادتهن للمشاركة.</td></tr><tr><td>مرجع رسمي</td><td>معايير التعليم الإلكتروني، المركز الوطني للتعليم الإلكتروني</td><td><a href="https://nelc.gov.sa/regulations-and-standards/elearning-standards" target="_blank" rel="noopener">nelc.gov.sa</a></td><td>نقارن واقع التفاعل بمعايير المشاركة والتواصل، فنعرف أين يقع الخلل ونبني الحلول عليها.</td></tr></tbody></table></div>
+  <h4><b>2</b> المصادر المرئية</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>أسباب ضعف التفاعل</td><td>يوتيوب</td><td><a href="https://www.youtube.com/watch?v=MZuK1fu_Hvg" target="_blank" rel="noopener">يوتيوب</a></td><td>نتوقع عرضًا لأسباب ضعف تفاعل المتعلمين وطرقًا مقترحة لمعالجتها.</td></tr><tr><td>Disengagement is not the Yang of Engagement (ندوة إلكترونية)</td><td>د. Jean Starobin – سلسلة AACSB، جامعة إلينوي</td><td><a href="https://mediaspace.illinois.edu/media/t/1_smtv0awp/213011553" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع استراتيجيات لصنع مساحة مقصودة للتفاعل، وطرقًا للوصول إلى الطالبات المنقطعات.</td></tr></tbody></table></div>
+  <h4><b>3</b> البودكاست</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">الحلقة</th><th scope="col">الجهة</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منها</th></tr></thead><tbody><tr><td>Teaching Matters: Student Mental Health &amp; Online Engagement، الجزء الأول (2021)</td><td>بودكاست Teaching Matters – جامعة إدنبرة</td><td><a href="https://blogs.ed.ac.uk/teaching-matters/podcast-student-mental-health-online-engagement-part-1/" target="_blank" rel="noopener">صفحة الحلقة</a></td><td>نتوقع أن نعرف جوانب التفاعل الإلكتروني السلبية وآثاره غير المقصودة على الطلاب، ومقترحات أساتذة ومختصين في دعم الطلاب لتحسينه.</td></tr></tbody></table></div>
+  <h4><b>4</b> الدورات التدريبية وورش العمل</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الدورة / الورشة</th><th scope="col">الجهة المقدمة</th><th scope="col">الشروط ومتطلبات الالتحاق والمحتوى</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>دورة: Fostering Engagement in the Age of Digital Distraction</td><td>شركة Intel عبر Coursera</td><td>مجانية للتعلم الذاتي ومستواها مبتدئ، وتُنجز في أسبوع تقريبًا (أقل من 10 ساعات). من وحداتها الثلاث وحدة &quot;تحويل عدم الاندماج إلى إصرار&quot; (Turning Disengagement to Determination).</td><td><a href="https://www.coursera.org/learn/fostering-engagement-in-the-age-of-digital-distraction" target="_blank" rel="noopener">Coursera</a></td></tr><tr><td>برنامج دورات: Virtual Teacher</td><td>جامعة كاليفورنيا إرفاين عبر Coursera</td><td>سلسلة دورات للتعلم الذاتي، والشهادة برسوم. منها دورة الاستراتيجيات التدريسية المتقدمة في الفصل الافتراضي، وتفيد في معالجة ضعف التفاعل في الفصول الافتراضية.</td><td><a href="https://www.coursera.org/specializations/virtualteacher" target="_blank" rel="noopener">Coursera</a></td></tr></tbody></table></div>
+  <h4><b>5</b> الشهادة المهنية</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الشروط ومتطلبات الالتحاق</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>الشهادة المهنية الاحترافية في تقديم التعليم والتدريب الإلكتروني (OTT)</td><td>المركز الوطني للتعليم الإلكتروني</td><td>تدريب لدى جهة معتمدة من المركز، مدعوم من صندوق &quot;هدف&quot;، والمستوى المتقدم باختبار مركزي بالتكامل مع هيئة تقويم التعليم والتدريب. ترتبط بالهدف لأنها تركّز على إدارة التفاعل وتحفيز المتعلمين إلكترونيًا.</td><td><a href="https://pc.nelc.gov.sa" target="_blank" rel="noopener">pc.nelc.gov.sa</a></td></tr></tbody></table></div>
+</section>
+<section class="goal" id="goal-6">
+  <header class="goal-head">
+    <div class="goal-num" aria-hidden="true">6</div>
+    <div class="goal-meta">
+      <p class="eyebrow">الهدف 6 من 6</p>
+      <h3>قياس الحضور والتفاعل لتقويم الأنشطة الرقمية وتحسينها</h3>
+      <p class="owner"><span>العضو المسؤول</span> سمية الحيدري</p>
+      <p class="personal"><span>الهدف الشخصي</span> أن أبني استبانة قصيرة مبنية على نموذج مجتمع الاستقصاء، وأحلل بها مع تقارير المنصة تفاعل الزميلات في أنشطة البيئة.</p>
+    </div>
+  </header>
+  <div class="tally" aria-label="مكونات الهدف">
+    <span>4 مصادر مكتوبة</span><span>2 مرئي</span><span>1 بودكاست</span><span>2 دورة / ورشة</span><span>1 شهادة مهنية</span>
+  </div>
+  <h4><b>1</b> المصادر المكتوبة</h4><div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>بحث علمي</td><td>استخدام تحليلات التعلم عبر نظام إدارة التعلم الإلكتروني (Blackboard) في تحسين ممارسات العملية التعليمية بمؤسسات التعليم الجامعي، صباح الصبحي (2023)، مجلة العلوم التربوية والاجتماعية – الجامعة الإسلامية</td><td><a href="https://journals.iu.edu.sa/ESS/Main/Article/9677" target="_blank" rel="noopener">صفحة البحث</a></td><td>دراسة سعودية عن استخدام تحليلات البلاك بورد في توثيق الحضور ومتابعة النشاط وتحديد الطلاب المعرضين للتعثر.</td></tr><tr><td>مقال أكاديمي</td><td>تحليلات التعلّم في التعليم العالي: تعزيز التفاعل الأكاديمي والتعلّم المخصّص من خلال المنصّات الرقمية</td><td><a href="https://shamra-academia.com/show/66837c055eb845" target="_blank" rel="noopener">شمرا أكاديميا</a></td><td>كيف تُستخدم بيانات المنصات (الدخول، المشاركات، زمن التفاعل) لقياس التفاعل وتحسين الأنشطة.</td></tr><tr><td>دليل تطبيقي</td><td>Course Activity Report (تقرير نشاط المقرر في Blackboard Ultra)، أدلة جامعة درم</td><td><a href="https://helpguides.webspace.durham.ac.uk/software/blackboard/staff-guides/analytics" target="_blank" rel="noopener">Durham</a></td><td>خطوات قراءة تقرير النشاط: ساعات التواجد في المقرر، والمواعيد الفائتة، وأيام الغياب، وضبط التنبيهات للطالبات غير المتفاعلات.</td></tr><tr><td>مرجع رسمي</td><td>نموذج مجتمع الاستقصاء وأداة قياسه، جامعة أثاباسكا</td><td><a href="https://coi.athabascau.ca/coi-model/" target="_blank" rel="noopener">coi.athabascau.ca</a></td><td>نعتمد أبعاده الثلاثة أساسًا لاستبانة نقيس بها الحضور في أنشطتنا.</td></tr></tbody></table></div>
+  <h4><b>2</b> المصادر المرئية</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>Introduction to Learning Analytics (المحاضرة 1 من مقرر تحليلات التعلم)</td><td>منصة NPTEL</td><td><a href="https://archive.nptel.ac.in/courses/127101012" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع أن نعرف مفهوم تحليلات التعلم، وجمع البيانات، والتحليل الوصفي والتنبؤي، وأخلاقيات استخدام بيانات الطلاب.</td></tr><tr><td>The Current State of Learning Analytics and Where to Go from Here (ندوة إلكترونية)</td><td>EDUCAUSE وAPLU وTyton Partners</td><td><a href="https://events.educause.edu/webinar/2021/the-current-state-of-learning-analytics-and-where-to-go-from-here" target="_blank" rel="noopener">مشاهدة</a></td><td>نتوقع أن نعرف واقع تحليلات التعلم وعوائقها، ودورها في دعم نجاح الطلاب، واستراتيجيات تطبيقها.</td></tr></tbody></table></div>
+  <h4><b>3</b> البودكاست</h4><div class="tw"><table class="c4"><thead><tr><th scope="col">الحلقة</th><th scope="col">الجهة</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منها</th></tr></thead><tbody><tr><td>Leading Learning، الحلقة 143: Tapping Into Educational Data Mining and Learning Analytics مع د. Ryan Baker (26 دقيقة، 2018)</td><td>بودكاست Leading Learning</td><td><a href="https://metacast.app/podcast/leading-learning-podcast/3QQnIwvV/143-tapping-into-educational-data-mining-and-learning-analytics-with-ryan-baker/O4FHMVwH" target="_blank" rel="noopener">صفحة الحلقة</a></td><td>نتوقع أن نعرف كيف تُستخدم بيانات التعلم لفهم اندماج الطلاب وانصرافهم والتنبؤ بنتائجهم، من مدير مركز تحليلات التعلم بجامعة بنسلفانيا.</td></tr></tbody></table></div>
+  <h4><b>4</b> الدورات التدريبية وورش العمل</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الدورة / الورشة</th><th scope="col">الجهة المقدمة</th><th scope="col">الشروط ومتطلبات الالتحاق والمحتوى</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>دورة: Assessment for Learning</td><td>جامعة إلينوي أوربانا شامبين عبر Coursera</td><td>مجانية للتعلم الذاتي ومستواها مبتدئ، ومدتها نحو 14 ساعة. من وحداتها: التقويم في العصر الرقمي، والتنقيب في البيانات التعليمية والتقويم.</td><td><a href="https://www.coursera.org/learn/assessmentforlearning" target="_blank" rel="noopener">Coursera</a></td></tr><tr><td>دورة: Data, Analytics and Learning (DALMOOC)</td><td>جامعة تكساس في أرلينغتون، مختبر LINK عبر edX</td><td>دورة مفتوحة للتعلم الذاتي. تشرح مفاهيم تحليلات التعلم وأدواتها لقياس تفاعل المتعلمين.</td><td><a href="https://linkresearchlab.org/dalmooc/" target="_blank" rel="noopener">LINK Lab</a></td></tr></tbody></table></div>
+  <h4><b>5</b> الشهادة المهنية</h4><div class="tw"><table class="c4b"><thead><tr><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الشروط ومتطلبات الالتحاق</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>شهادة ISTE للمعلمين (ISTE Certification for Educators)</td><td>الجمعية الدولية للتقنية في التعليم ISTE</td><td>برنامج تدريبي عن بعد مدته 80 ساعة (نحو 9 أشهر)، ثم ملف إنجاز يُقدَّم خلال 6 أشهر ويُطابَق مع معايير ISTE للمعلمين، ويُشترط تحقيق 20 معيارًا من 25. الرسوم 825 دولارًا، والشهادة صالحة 3 سنوات. ترتبط بالهدف لأن ملف الإنجاز يتطلب توثيق الأثر بالأدلة.</td><td><a href="https://iste.org/cohorts/educator-certification-november-3-2025" target="_blank" rel="noopener">ISTE</a></td></tr></tbody></table></div>
+</section>
+  <section class="goal extra">
+    <h3 class="sub">مصادر إضافية جمعها الفريق</h3>
+    <p>مصادر جمعتها عضوات الفريق وتزيد عن المعيار الموحّد، فوضعناها هنا مرجعًا إضافيًا.</p>
+    <div class="tw"><table class="c4w"><thead><tr><th scope="col">النوع</th><th scope="col">المصدر</th><th scope="col">الرابط</th><th scope="col">ما سنستفيده منه</th></tr></thead><tbody><tr><td>حلقة نقاش</td><td>دور المفكر الناقد والمفكر المبدع، مركز التميز في التعليم والتعلم بجامعة النجاح الوطنية</td><td><a href="https://celt.najah.edu/sites/celt.najah.edu/files/Critical%20Thinking%20Introduction%20%28Arabic%29.pdf" target="_blank" rel="noopener">ملف العرض</a></td><td>استراتيجيات بالعربية: الأسئلة المفتوحة، والعصف الذهني، والتعلم الجماعي، وإعطاء وقت للتأمل قبل الإجابة.</td></tr><tr><td>بحث علمي</td><td>فاعلية بيئة تعليمية قائمة على التلعيب في تنمية مهارات التعلم العميق لدى الطالبات المعلمات، انتصار ناجي ومجدي عقل (2023)</td><td><a href="https://doi.org/10.35516/edu.v50i2.237" target="_blank" rel="noopener">DOI</a></td><td>نستفيد من طريقة تصميم البيئة الملعّبة نفسها، لأنها طُبّقت على طالبات معلمات مثلنا.</td></tr><tr><td>بحث علمي</td><td>آراء المعلمات في كلية التربية بجامعة الملك سعود حول استخدام التلعيب في العملية التعليمية</td><td><a href="https://jyse.journals.ekb.eg/article_188514_fa5fce4b363665f8cdffb78022b2ae0e.pdf" target="_blank" rel="noopener">بنك المعرفة المصري</a></td><td>متطلبات تطبيق التلعيب ومعوقاته من واقع الميدان، فنكون واقعيات في التصميم.</td></tr><tr><td>بحث علمي</td><td>Gender Differences in Social Presence in Gender-Segregated and Blended Learning Environments in Saudi Arabia، مجلة Online Learning (2017)</td><td><a href="https://doi.org/10.24059/olj.v21i4.966" target="_blank" rel="noopener">DOI</a></td><td>يقارن الحضور الاجتماعي بين البيئات المنفصلة والمدمجة، ويساعدنا في تفسير ضعف التفاعل في سياقنا.</td></tr><tr><td>بحث علمي</td><td>Investigating Student&#x27;s Motivation and Online Learning Engagement through the Lens of Self-Determination Theory، مجلة JARHE (2024)</td><td><a href="https://doi.org/10.1108/JARHE-09-2023-0445" target="_blank" rel="noopener">DOI</a></td><td>يربط ضعف الاندماج بنقص الدافعية الذاتية (الاستقلالية والكفاءة والانتماء)، فيقترح مداخل للحلول.</td></tr><tr><td>بحث علمي</td><td>بحث منشور في المجلة الدولية للعلوم الإنسانية والاجتماعية IJoHSS، العدد 26 (2021)</td><td><a href="https://doi.org/10.33193/IJoHSS.26.2021.330" target="_blank" rel="noopener">DOI</a></td><td>نستفيد منه في حصر أسباب ضعف التفاعل في التعليم الإلكتروني.</td></tr><tr><td>بحث علمي</td><td>بحث منشور في المجلة العلمية لجامعة الملك فيصل – العلوم الإنسانية والإدارية (2021)</td><td><a href="https://doi.org/10.37575/h/edu/210026" target="_blank" rel="noopener">DOI</a></td><td>نستفيد منه في اقتراح حلول عملية لرفع التفاعل.</td></tr></tbody></table></div>
+    <div class="tw"><table class="c4"><thead><tr><th scope="col">عنوان المقطع</th><th scope="col">القناة / المقدم</th><th scope="col">الرابط</th><th scope="col">ماذا نتوقع أن نعرف منه</th></tr></thead><tbody><tr><td>دورة &quot;التلعيب في التعليم&quot;</td><td>قناة أ. صالح العجيل</td><td><a href="https://www.youtube.com/watch?v=tzqRJU26qXU" target="_blank" rel="noopener">يوتيوب</a></td><td>نتوقع تطبيقات صفية واقعية للتلعيب من معلم يطبقه في صفه، مثل برنامج ClassDojo.</td></tr></tbody></table></div>
+  </section>
+</section>
+
+<section id="tools" class="block">
+  <h2><small>رابعًا</small>الأدوات الرقمية التي سنوظفها</h2>
+  <p>اخترنا الأدوات بحيث تخدم كل أداة هدفًا محددًا، وتُستخدم في نشاط فعلي داخل بيئتنا وليس لمجرد التجربة.</p>
+  <div class="tw"><table class=""><thead><tr><th scope="col">الأداة</th><th scope="col">كيف سنستخدمها</th><th scope="col">الهدف</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>لوحات النقاش في البلاك بورد</td><td>نقاش غير متزامن حول سؤال أسبوعي، مع قاعدة الرد على زميلتين على الأقل.</td><td>1، 2، 5</td><td><a href="https://help.blackboard.com" target="_blank" rel="noopener">Blackboard</a></td></tr><tr><td>Padlet</td><td>حائط أفكار تعاوني نطرح فيه حالات ونحلل الحجج ونقيّمها.</td><td>3</td><td><a href="https://padlet.com" target="_blank" rel="noopener">padlet.com</a></td></tr><tr><td>Mentimeter</td><td>أسئلة واستطلاعات لحظية وسحابة كلمات في الجلسات المتزامنة.</td><td>2، 6</td><td><a href="https://www.mentimeter.com" target="_blank" rel="noopener">mentimeter.com</a></td></tr><tr><td>Kahoot!</td><td>مسابقات مراجعة بالنقاط ولوحة الصدارة لتطبيق التلعيب.</td><td>4</td><td><a href="https://kahoot.com" target="_blank" rel="noopener">kahoot.com</a></td></tr><tr><td>Google Forms</td><td>استبانة قصيرة مبنية على نموذج مجتمع الاستقصاء لقياس الحضور بعد كل نشاط.</td><td>6</td><td><a href="https://forms.google.com" target="_blank" rel="noopener">Google Forms</a></td></tr></tbody></table></div>
+</section>
+
+<section id="path" class="block">
+  <h2><small>خامسًا</small>مسارنا للتأهيل المهني</h2>
+  <p>اخترنا لكل هدف شهادة مهنية (تفاصيلها في قسم المصادر)، وأضفنا الرخصة المهنية لمن تختار التدريس.</p>
+  <div class="tw"><table class=""><thead><tr><th scope="col">يرتبط بـ</th><th scope="col">الشهادة</th><th scope="col">الجهة المانحة</th><th scope="col">الرابط</th></tr></thead><tbody><tr><td>الهدف 1</td><td>شهادة التدريس الإلكتروني (Online Teaching Certificate)</td><td>اتحاد التعلم الإلكتروني (OLC)</td><td><a href="https://onlinelearningconsortium.org/otc-basic-certificate/" target="_blank" rel="noopener">OLC</a></td></tr><tr><td>الهدف 2</td><td>مراجع معتمد من Quality Matters (QM-Certified Peer Reviewer)</td><td>منظمة Quality Matters</td><td><a href="https://www.qualitymatters.org/professional-development/workshops/higher-ed-appqmr" target="_blank" rel="noopener">Quality Matters</a></td></tr><tr><td>الهدف 3</td><td>المعلم المعتمد من مايكروسوفت (Microsoft Certified Educator)</td><td>Microsoft عبر مراكز Certiport</td><td><a href="https://learn.microsoft.com/en-us/credentials/microsoft-certified-educator/" target="_blank" rel="noopener">Microsoft Learn</a></td></tr><tr><td>الهدف 4</td><td>شهادة Google Certified Educator Level 1</td><td>Google for Education</td><td><a href="https://edu.google.com/for-educators/frequently-asked-questions" target="_blank" rel="noopener">Google for Education</a></td></tr><tr><td>الهدف 5</td><td>الشهادة المهنية الاحترافية في تقديم التعليم والتدريب الإلكتروني (OTT)</td><td>المركز الوطني للتعليم الإلكتروني</td><td><a href="https://pc.nelc.gov.sa" target="_blank" rel="noopener">pc.nelc.gov.sa</a></td></tr><tr><td>الهدف 6</td><td>شهادة ISTE للمعلمين (ISTE Certification for Educators)</td><td>الجمعية الدولية للتقنية في التعليم ISTE</td><td><a href="https://iste.org/cohorts/educator-certification-november-3-2025" target="_blank" rel="noopener">ISTE</a></td></tr><tr><td>التدريس</td><td>الرخصة المهنية للمعلمين (رخصة مزاولة مهنة): شرطها البكالوريوس واجتياز الاختبار التربوي العام والتخصصي</td><td>هيئة تقويم التعليم والتدريب</td><td><a href="https://tpl.etec.gov.sa" target="_blank" rel="noopener">tpl.etec.gov.sa</a></td></tr></tbody></table></div>
+  <p class="note"><strong>الفرق باختصار:</strong> شهادة الدورة أو الورشة تثبت الحضور والإكمال، والشهادة المهنية تثبت امتلاك مهارة محددة باختبار أو ملف إنجاز، أما الرخصة فهي إذن رسمي بمزاولة مهنة التعليم.</p>
+</section>
+
+<section id="network" class="block">
+  <h2><small>سادسًا</small>شبكتنا للتعلم والتواصل المهني</h2>
+  <h3 class="sub">متخصصون نتابعهم</h3>
+  <div class="tw"><table class=""><thead><tr><th scope="col">الاسم</th><th scope="col">لماذا نتابعه</th><th scope="col">الحساب / الرابط</th><th scope="col">كيف نتفاعل</th></tr></thead><tbody><tr><td>د. محمد الحجيلان</td><td>أستاذ في جامعة الملك سعود، من أبحاثه دراسات الحضور الاجتماعي في البلاك بورد التي اعتمدنا عليها في الهدفين 1 و5.</td><td><a href="https://faculty.ksu.edu.sa/en/malhojailan" target="_blank" rel="noopener">صفحته في الجامعة</a></td><td>نقرأ أبحاثه المنشورة ونتابع الجديد منها</td></tr><tr><td>Randy Garrison</td><td>من واضعي نموذج مجتمع الاستقصاء الذي نبني عليه فهم الحضور وقياسه.</td><td><a href="https://coi.athabascau.ca/coi-model/" target="_blank" rel="noopener">موقع النموذج</a></td><td>نستمع لمقابلته ونطّلع على الدراسات الجديدة</td></tr><tr><td>د. تغريد الرحيلي</td><td>أستاذة تقنيات تعليم، قدمت ندوة متخصصة في التلعيب في التعلم الإلكتروني.</td><td><a href="https://www.youtube.com/watch?v=2-Vjgg2oHds" target="_blank" rel="noopener">ندوتها على يوتيوب</a></td><td>نستفيد من ندوتها وأبحاثها</td></tr><tr><td>Karl Kapp</td><td>من رواد تلعيب التعلم والتدريب.</td><td><a href="https://www.kaplaneduneering.com/kappnotes/" target="_blank" rel="noopener">Kapp Notes</a></td><td>نقرأ تدويناته ونعلّق عليها</td></tr><tr><td>د. Ryan Baker</td><td>مدير مركز تحليلات التعلم بجامعة بنسلفانيا، ومن مؤسسي مجتمع التنقيب في البيانات التعليمية.</td><td><a href="https://metacast.app/podcast/leading-learning-podcast/3QQnIwvV/143-tapping-into-educational-data-mining-and-learning-analytics-with-ryan-baker/O4FHMVwH" target="_blank" rel="noopener">حلقته في البودكاست</a></td><td>نتابع أبحاثه في قياس الاندماج</td></tr></tbody></table></div>
+  <div class="split even">
+    <div><h3 class="sub">مجتمعات وجهات مهنية</h3><ul class="list"><li><strong>اتحاد التعلم الإلكتروني (OLC):</strong> مجتمع دولي متخصص في جودة التعليم الإلكتروني، نتابع مواده وورشه. <a href="https://onlinelearningconsortium.org" target="_blank" rel="noopener">onlinelearningconsortium.org</a></li><li><strong>منظمة Quality Matters:</strong> نتابع ورشها ومعاييرها لجودة المقررات الإلكترونية. <a href="https://www.qualitymatters.org" target="_blank" rel="noopener">www.qualitymatters.org</a></li><li><strong>مجتمع Connect التابع لـ ISTE+ASCD:</strong> مجموعات مجانية للمعلمين نتابع فيها نقاشات الأدوات الرقمية والتلعيب. <a href="https://iste.org" target="_blank" rel="noopener">iste.org</a></li><li><strong>المركز الوطني للتعليم الإلكتروني:</strong> نتابع أخباره وندواته ومعاييره المحدّثة. <a href="https://nelc.gov.sa" target="_blank" rel="noopener">nelc.gov.sa</a></li><li><strong>زميلات المقرر:</strong> عبر منتدى النقاش، نتبادل الروابط والملاحظات ونجرّب أنشطة بعضنا ونقيّمها.</li></ul></div>
+    <div><h3 class="sub">كيف نتعلم من هذه الشبكة</h3><ul class="list"><li><strong>نتابع ونقرأ:</strong> تخصص كل عضو وقتًا أسبوعيًا قصيرًا لمراجعة ما نشره من نتابعهم في هدفها.</li><li><strong>نسأل ونناقش:</strong> نطرح سؤالًا واحدًا على الأقل كل أسبوعين في أحد المجتمعات المهنية.</li><li><strong>نتبادل الموارد:</strong> نشارك أي مصدر جديد في منتدى المقرر مع ذكر الهدف الذي يخدمه.</li><li><strong>نطلب تغذية راجعة:</strong> نعرض الأنشطة التي نصممها على الزميلات وندوّن ملاحظاتهن ثم نعدّل.</li></ul></div>
+  </div>
+  <h3 class="sub">كيف تترابط مكونات بيئتنا</h3>
+  <div class="tw"><table class=""><thead><tr><th scope="col">المكوّن</th><th scope="col">دوره في البيئة</th><th scope="col">يرتبط بـ</th></tr></thead><tbody><tr><td>الأهداف الشخصية</td><td>كل عضو تتولى هدفًا من أهداف المجموعة وتصوغ هدفها الشخصي فيه</td><td>تحدد المصادر التي تجمعها كل عضو</td></tr><tr><td>المصادر</td><td>تبني الفهم النظري: ما الحضور؟ ولماذا يضعف التفاعل؟ (الأهداف 1 و2 و5)</td><td>تحدد الاستراتيجيات التي نطبقها بالأدوات</td></tr><tr><td>الأدوات الرقمية</td><td>ننفذ بها أنشطة فعلية: نقاش، حائط أفكار، مسابقة ملعّبة (الأهداف 3 و4)</td><td>تنتج بيانات مشاركة نقيسها</td></tr><tr><td>القياس والتقويم</td><td>نقيس الحضور باستبانة مجتمع الاستقصاء وبتقارير المنصة (الهدف 6)</td><td>يكشف ما نحتاج تحسينه فنعود للمصادر والشبكة</td></tr><tr><td>الشبكة المهنية</td><td>نسأل فيها ونعرض تجاربنا ونجمع تغذية راجعة</td><td>تضيف مصادر جديدة وتطوّر الأنشطة</td></tr><tr><td>الدورات والشهادات</td><td>تعمّق المهارات وتوثّقها</td><td>تدعم الكفايات الأربع المستهدفة</td></tr></tbody></table></div>
+</section>
+
+<section id="plan" class="block">
+  <h2><small>سابعًا</small>خطتنا ومتابعة تقدمنا</h2>
+  <div class="tw"><table class=""><thead><tr><th scope="col">الفترة</th><th scope="col">ماذا سنتعلم وكيف</th><th scope="col">كيف نعرف أننا تقدمنا</th></tr></thead><tbody><tr><td>الأسبوع 1 و2</td><td>قراءة مصادر الهدفين 1 و2، ومشاهدة ندوة المركز الوطني، والاستماع لمقابلة نموذج مجتمع الاستقصاء</td><td>نكتب تعريفنا الخاص للحضور الفاعل ونفرّقه عن الحضور الشكلي في فقرة واحدة</td></tr><tr><td>الأسبوع 3</td><td>قراءة أبحاث الهدف 5 والاستماع لحلقة جامعة إدنبرة</td><td>قائمة بأهم 5 أسباب لضعف التفاعل مع حل مقترح لكل سبب</td></tr><tr><td>الأسبوع 4</td><td>تصميم نشاط تفكير ناقد على Padlet أو لوحة النقاش</td><td>نشاط جاهز مرتبط بهدف تعليمي واضح وسؤال مفتوح</td></tr><tr><td>الأسبوع 5</td><td>إكمال دورة إدراك وتصميم مسابقة ملعّبة على Kahoot</td><td>شهادة إتمام، ونشاط ملعّب مرتبط بالمحتوى</td></tr><tr><td>الأسبوع 6</td><td>تجربة الأنشطة مع زميلات المقرر</td><td>ملاحظات مكتوبة من 3 زميلات على الأقل</td></tr><tr><td>الأسبوع 7</td><td>قياس الحضور باستبانة مجتمع الاستقصاء وتحليل المشاركات</td><td>تقرير قصير بنتائج القياس وما يحتاج تحسينًا</td></tr><tr><td>الأسبوع 8</td><td>تعديل الأنشطة، والبدء في دورة واحدة على الأقل لكل عضو في هدفها</td><td>نسخة معدلة من الأنشطة، وإنهاء الوحدة الأولى من كل دورة</td></tr></tbody></table></div>
+  <h3 class="sub">كيف سنحدّث هذه البيئة</h3>
+  <ul class="list"><li>نراجع الروابط مرة كل شهر، ونحذف أي رابط توقف أو مصدر لم يفدنا.</li><li>نضيف ما نجده من مصادر جديدة عن طريق شبكتنا، مع تحديد الهدف الذي يخدمه.</li><li>نحتفظ بسجل أسبوعي بسيط: ماذا تعلمنا، وما الذي لم نفهمه بعد، وماذا سنفعل الأسبوع القادم.</li><li>بعد نهاية الخطة نعيد النظر في أهدافنا، وقد ننتقل إلى موضوع قريب مثل <strong>تحليلات التعلم</strong> لارتباطه بقياس التفاعل.</li></ul>
+</section>
+
+<section id="team" class="block">
+  <h2><small>الفريق</small>بيانات فريق العمل</h2>
+  <div class="tw"><table><thead><tr><th scope="col">اسم الطالبة</th><th scope="col">الرقم الجامعي</th><th scope="col">الهدف المسؤولة عنه</th></tr></thead><tbody><tr><td>رشا العريني</td><td class="num">448005823</td><td><a href="#goal-1">الهدف 1: الحضور والتفاعل</a></td></tr><tr><td>هنادي شعيب</td><td class="num">448006155</td><td><a href="#goal-2">الهدف 2: استراتيجيات الحضور</a></td></tr><tr><td>نورة القحطاني</td><td class="num">448005977</td><td><a href="#goal-3">الهدف 3: التفكير الناقد</a></td></tr><tr><td>آية الجهني</td><td class="num">448006162</td><td><a href="#goal-4">الهدف 4: التحفيز والتلعيب</a></td></tr><tr><td>وفاء السياري</td><td class="num">448006084</td><td><a href="#goal-5">الهدف 5: أسباب ضعف التفاعل</a></td></tr><tr><td>سمية الحيدري</td><td class="num">448005935</td><td><a href="#goal-6">الهدف 6: القياس والتقويم</a></td></tr></tbody></table></div>
+</section>
+</main>
+<footer class="foot"><div class="wrap">بيئة التعلم الشخصية · التفاعل والحضور في بيئات التعلم الرقمية · مقرر التقنية في بيئات التعلم</div></footer>
+</div>
+</body>
+</html>
