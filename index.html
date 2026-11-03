@@ -7,13 +7,13 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap">
 <style>/* Layout: a teal masthead, a sticky section bar, then a single reading column whose goal sections read like chapters of one learning environment. */
 :root{
   --bg:#F5F8F7; --surface:#FFFFFF; --ink:#14302F; --muted:#56706E; --line:#D5E2E0;
   --teal:#0E5F63; --teal-soft:#E2EFEE; --gold:#B8892B; --gold-soft:#F6EDD9;
   --head-bg:#0E5F63; --head-ink:#F3FAF9; --head-muted:#BFDCD9; --head-accent:#F1CE7E;
-  --f-display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
   --f-body:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -139,6 +139,60 @@ td a{word-break:normal;white-space:nowrap}
 
 .foot{border-top:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:13px}
 .foot .wrap{padding-block:20px}
+
+/* ---- refinements v2 ---- */
+body{font-size:16.5px;line-height:1.9}
+.masthead{background:linear-gradient(160deg,var(--head-bg) 0%,color-mix(in srgb,var(--head-bg) 82%,#000) 100%)}
+.masthead .wrap{padding-block:56px 44px;gap:20px}
+.masthead h1{font-weight:700;line-height:1.45;letter-spacing:0;max-width:22ch}
+.kicker{display:inline-flex;flex-wrap:wrap;gap:6px 10px;font-size:12.5px}
+.facts li{background:color-mix(in srgb,var(--head-ink) 8%,transparent)}
+.facts b{font-weight:600}
+.topnav{box-shadow:0 1px 0 var(--line)}
+.topnav a{transition:background .15s,color .15s}
+.topnav a.on{background:var(--teal);color:var(--surface)}
+@media (prefers-reduced-motion: reduce){.topnav a{transition:none}}
+
+main{padding-block:24px 56px}
+.block{padding:36px clamp(18px,3vw,36px) 28px;margin-block:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;border-bottom:1px solid var(--line)}
+.block:last-child{border-bottom:1px solid var(--line)}
+h2{font-weight:600;line-height:1.5;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+h2 small{font-size:12.5px;font-weight:600;color:var(--gold);background:var(--gold-soft);align-self:flex-start;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+.sub{font-family:var(--f-display);font-weight:500;font-size:19px;color:var(--ink)}
+.question{font-weight:500;background:var(--teal-soft);border-radius:12px;padding:14px 18px;text-align:center;max-width:none}
+.aim{border:1px solid color-mix(in srgb,var(--teal) 25%,transparent)}
+
+.tw{border-radius:12px}
+thead th{font-family:var(--f-display);font-weight:500;font-size:13.5px;padding-block:12px}
+tbody tr:nth-child(even) td,tbody tr:nth-child(even) th{background:color-mix(in srgb,var(--teal-soft) 45%,transparent)}
+tbody tr:hover td,tbody tr:hover th{background:var(--teal-soft)}
+td a{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--teal-soft);text-decoration:none;font-weight:500;font-size:13.5px}
+td a:hover{background:var(--teal);color:var(--surface)}
+.matrix td a,.matrix th a{background:none;padding:0}
+table.c4w td:first-child{font-family:var(--f-display);font-weight:500}
+
+.goals-list a{padding:12px 14px;border-radius:12px;transition:border-color .15s,transform .15s}
+.goals-list a:hover{transform:translateX(-2px)}
+.goals-list b{font-weight:600}
+
+.goal{margin-top:28px;padding:24px clamp(14px,2.5vw,26px) 18px;border:1px solid var(--line);border-top:4px solid var(--teal);border-radius:16px;background:var(--bg)}
+.goal-head{align-items:center}
+.goal-num{width:72px;height:72px;border-radius:18px;display:grid;place-items:center;background:var(--teal);color:var(--surface);font-size:38px;font-weight:600}
+.goal-meta h3{font-weight:600}
+.goal h4{font-family:var(--f-display);font-weight:500;font-size:16.5px;margin-top:26px}
+.goal h4 b{width:28px;height:28px;border-radius:8px;font-family:var(--f-display)}
+.tally span{border-style:solid;background:var(--surface)}
+.goalnav{position:relative}
+.goalnav a{transition:border-color .15s,background .15s}
+.goalnav a:hover{background:var(--teal-soft)}
+@media (max-width:520px){.goal-num{width:52px;height:52px;font-size:26px;border-radius:14px}.block{border-radius:14px}}
+.foot{text-align:center}
+@media (max-width:620px){
+  .block{padding:24px 14px 18px;margin-block:14px}
+  .goal{padding:18px 12px 12px;margin-inline:-4px}
+  .goal-head{grid-template-columns:minmax(0,1fr)}
+  .goal-num{width:44px;height:44px;font-size:22px;border-radius:12px}
+}
 </style>
 </head>
 <body>
@@ -366,6 +420,17 @@ td a{word-break:normal;white-space:nowrap}
   <div class="tw"><table><thead><tr><th scope="col">اسم الطالبة</th><th scope="col">الرقم الجامعي</th><th scope="col">الهدف المسؤولة عنه</th></tr></thead><tbody><tr><td>رشا العريني</td><td class="num">448005823</td><td><a href="#goal-1">الهدف 1: الحضور والتفاعل</a></td></tr><tr><td>هنادي شعيب</td><td class="num">448006155</td><td><a href="#goal-2">الهدف 2: استراتيجيات الحضور</a></td></tr><tr><td>نورة القحطاني</td><td class="num">448005977</td><td><a href="#goal-3">الهدف 3: التفكير الناقد</a></td></tr><tr><td>آية الجهني</td><td class="num">448006162</td><td><a href="#goal-4">الهدف 4: التحفيز والتلعيب</a></td></tr><tr><td>وفاء السياري</td><td class="num">448006084</td><td><a href="#goal-5">الهدف 5: أسباب ضعف التفاعل</a></td></tr><tr><td>سمية الحيدري</td><td class="num">448005935</td><td><a href="#goal-6">الهدف 6: القياس والتقويم</a></td></tr></tbody></table></div>
 </section>
 </main>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.topnav a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){
+    if(en.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[en.target.id];if(a){a.classList.add('on');a.scrollIntoView({block:'nearest',inline:'center'});}}
+  });},{rootMargin:'-40% 0px -55% 0px'});
+  Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+})();
+</script>
 <footer class="foot"><div class="wrap">بيئة التعلم الشخصية · التفاعل والحضور في بيئات التعلم الرقمية · مقرر التقنية في بيئات التعلم</div></footer>
 </div>
 </body>
