@@ -337,6 +337,15 @@ h2 small{background:linear-gradient(90deg,var(--gold-soft),color-mix(in srgb,var
   .title-card,.intro-card,.stats li,.bubble,.block::before{animation:none}
   .stats li,.cy-node,.goals-list a{transition:none}
 }
+
+/* ---- v5: restore plain card backgrounds (keep colour accents only) ---- */
+.goal{background:var(--bg)}
+.goal thead th{background:var(--teal-soft);color:var(--gc)}
+.goal tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--teal-soft) 45%,transparent)}
+.goals-list a{background:var(--surface)}
+.question{background:var(--teal-soft);color:var(--teal)}
+.aim{background:var(--teal-soft)}
+.foot{background:var(--surface);color:var(--muted)}
 </style>
 </head>
 <body>
